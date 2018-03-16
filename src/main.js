@@ -10,7 +10,7 @@ import './assets/css/reset.css'
 import './assets/css/iconfont/iconfont.css'
 
 var axios_instance = axios.create({
-    baseURL: 'http://www.tp5.tt/v1',
+    baseURL: '',
     transformRequest: [function (data) {
         data = Qs.stringify(data);
         return data;

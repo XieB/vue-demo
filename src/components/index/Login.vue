@@ -1,9 +1,9 @@
 <template>
     <div class="full_bg">
         <div class="login_box clear_fix">
-            <div class="login_l_img"><img src="../assets/images/login-img.png"></div>
+            <div class="login_l_img"><img src="../../assets/images/login-img.png"></div>
             <div class="login">
-                <div class="login_logo"><a href="javascript:;"><img src="../assets/images/login_logo.png"></a></div>
+                <div class="login_logo"><a href="javascript:;"><img src="../../assets/images/login_logo.png"></a></div>
                 <div class="login_name">
                     <p>有个系统</p>
                 </div>
@@ -13,7 +13,7 @@
                     <input value="登录" style="width:100%;" type="button" @click="login">
                 </form>
             </div>
-            <div class="copyright">CopyRight</div>
+            <div class="copyright">CopyRight 三分文化</div>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
                 this.$http.post('/users',this.data).then(function(response){
                     if (response.data){
                         sessionStorage.setItem('auth',response.data);
-                        _this.$router.push('/managerindex');
+                        _this.$router.push('/index/index');
                     }
 
                 }).catch(function(error){

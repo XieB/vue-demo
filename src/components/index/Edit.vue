@@ -2,21 +2,21 @@
     <div class="edit">
         <label for="">
             <span>说明：</span>
-            <input type="text" placeholder="请输入说明" v-model="data.title">
+            <input type="text" placeholder="请输入说明" v-model="oneData.title">
         </label>
         <label for="">
             <span>网址：</span>
-            <input type="text" placeholder="http://" v-model="data.url">
+            <input type="text" placeholder="http://" v-model="oneData.url" :disabled="oneData.process != 1">
         </label>
         <label for="">
             <span>备注：</span>
-            <input type="text" placeholder="备注" v-model="data.remark">
+            <input type="text" placeholder="备注" v-model="oneData.remark">
         </label>
         <label for="">
             <span>完成情况：</span>
-            <span class="iconfont icon-duihao" :class="{active_dh : data.process == 1}" @click="isok"></span>
-            <span class="iconfont icon-jinxingzhong" :class="{active_jx : data.process == 2}" @click="isloading"></span>
-            <span class="iconfont icon-error-1" :class="{active_cw : data.process == 3}" @click="iserror"></span>
+            <span class="iconfont icon-duihao" :class="{active_dh : oneData.process == 1}" @click="isok"></span>
+            <span class="iconfont icon-jinxingzhong" :class="{active_jx : oneData.process == 2}" @click="isloading"></span>
+            <span class="iconfont icon-error-1" :class="{active_cw : oneData.process == 3}" @click="iserror"></span>
         </label>
         <div class="submit">
             <button type="button" @click="submit">提交</button>
@@ -29,34 +29,45 @@
         name: "edit",
         data : function(){
             return {
-                data : {
-                    process : 1,
-                    remark : '',
-                    title : '',
-                    url : ''
+                oneData : {
+
                 }
             }
         },
         methods : {
             isok : function(){
-                this.data.process = 1;
+                this.oneData.process = 1;
             },
             isloading : function(){
-                this.data.process = 2;
+                this.oneData.process = 2;
+                this.oneData.url = '';
             },
             iserror : function(){
-                this.data.process = 3;
+                this.oneData.process = 3;
+                this.oneData.url = '';
+            },
+            curl : function(id){
+                let _this = this;
+                this.$http('/plans/' + id).then(function(response){
+                    _this.oneData = response.data;
+                })
             },
             submit : function(){
                 let _this = this;
-                this.$http.post('/plans',this.data).then(function(response){
-                    if (response.data.code){
-                        _this.$router.push('/ManagerIndex');
+                this.$http.put('/plans/' + _this.oneData.id,_this.oneData).then(function(response){
+                    if (response.data.code == '1'){
+                        _this.$router.push('/index/index');
                     }else{
-                        alert('添加失败');
+                        alert('修改失败');
                     }
                 })
             }
+        },
+        created : function(){
+            this.curl(this.$route.params.id);
+        },
+        beforeRouteUpdate : function(to, from, next){
+            this.curl(this.$route.params.id);
         }
     }
 </script>
@@ -93,13 +104,13 @@
             .active_cw{
                 color: #d9534f;
             }
-            span.icon-jinxingzhong:hover{
+            .icon-jinxingzhong:hover{
                 .active_jx;
             }
-            span.icon-duihao:hover{
+            .icon-duihao:hover{
                 .active_dh;
             }
-            span.icon-error-1:hover{
+            .icon-error-1:hover{
                 .active_cw;
             }
         }
