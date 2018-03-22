@@ -6,6 +6,9 @@ import router from './router'
 import VueWechatTitle from 'vue-wechat-title'
 import axios from 'axios'
 import Qs from 'qs'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 import './assets/css/reset.css'
 import './assets/css/iconfont/iconfont.css'
 
@@ -50,6 +53,7 @@ axios_instance.interceptors.response.use(
 
 Vue.config.productionTip = false
 Vue.use(VueWechatTitle)
+Vue.use(ElementUI)
 Vue.prototype.$http = axios_instance
 /* eslint-disable no-new */
 router.beforeEach(function (to, from, next) {

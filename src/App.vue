@@ -22,4 +22,8 @@ export default {
   margin: 0;
   padding: 0;
 }
+    .main_content{
+        width: 1200px;
+        margin: 0 auto;
+    }
 </style>

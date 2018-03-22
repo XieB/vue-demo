@@ -6,7 +6,7 @@
         </label>
         <label for="">
             <span>网址：</span>
-            <input type="text" placeholder="http://" v-model="oneData.url" :disabled="oneData.process != 1">
+            <input type="text" placeholder="http://" v-model="oneData.url">
         </label>
         <label for="">
             <span>备注：</span>
@@ -40,11 +40,9 @@
             },
             isloading : function(){
                 this.oneData.process = 2;
-                this.oneData.url = '';
             },
             iserror : function(){
                 this.oneData.process = 3;
-                this.oneData.url = '';
             },
             curl : function(id){
                 let _this = this;

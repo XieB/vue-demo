@@ -73,6 +73,9 @@
         margin: 0 auto;
         .desc{
             width: 30%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .edit{
             width: 10%;
